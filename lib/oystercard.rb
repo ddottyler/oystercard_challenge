@@ -19,6 +19,7 @@ class Oystercard
   end
 
   def touch_in 
+    fail "No money" if balance < 1
     @in_travel = true
   end 
 

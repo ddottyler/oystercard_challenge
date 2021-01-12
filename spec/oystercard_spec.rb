@@ -2,18 +2,16 @@ require 'oystercard'
 
 describe Oystercard do
 
-  oystercard = Oystercard.new
-
   it { is_expected.to respond_to(:balance) }
 
   it { is_expected.to respond_to(:top_up).with(1).argument }
 
   it "should check a card has a balance" do
-    expect(oystercard.balance).to eq(0)
+    expect(subject.balance).to eq(0)
   end
 
   it "should top up balance" do
-    expect{ oystercard.top_up(20) }.to change{ oystercard.balance }.by 20
+    expect{ subject.top_up(20) }.to change{ subject.balance }.by 20
   end
 
   it 'raises an error if the maximum balance is exceeded' do
@@ -23,25 +21,31 @@ describe Oystercard do
   end 
 
   it 'should deduct money from balance' do
-    expect{ oystercard.deduct(20)}.to change{ oystercard.balance }.by -20
+    expect{ subject.deduct(20)}.to change{ subject.balance }.by -20
   end
 
   it { is_expected.to respond_to(:touch_in) }
 
   it 'should touch in oystercard' do
-    expect(oystercard.touch_in).to eq (true)
+    subject.top_up(5)
+    expect(subject.touch_in).to eq (true)
   end 
 
   it 'should check if oystercard is in_journey?' do
-    oystercard.touch_in
-    expect(oystercard.in_journey?).to eq(true)
+    subject.top_up(5)
+    subject.touch_in
+    expect(subject.in_journey?).to eq(true)
   end 
 
   it 'should touch out oystercard' do
-    oystercard.touch_in
-    expect(oystercard.touch_out).to eq (false)
+    subject.top_up(5)
+    subject.touch_in
+    expect(subject.touch_out).to eq (false)
   end 
 
+  it 'should raise an error if balance is less than 1' do
+    expect { subject.touch_in }.to raise_error "No money"
+  end
 end
 
 # it 'is initially not in a journey' do
