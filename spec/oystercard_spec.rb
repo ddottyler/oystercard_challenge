@@ -26,5 +26,35 @@ describe Oystercard do
     expect{ oystercard.deduct(20)}.to change{ oystercard.balance }.by -20
   end
 
+  it { is_expected.to respond_to(:touch_in) }
+
+  it 'should touch in oystercard' do
+    expect(oystercard.touch_in).to eq (true)
+  end 
+
+  it 'should check if oystercard is in_journey?' do
+    oystercard.touch_in
+    expect(oystercard.in_journey?).to eq(true)
+  end 
+
+  it 'should touch out oystercard' do
+    oystercard.touch_in
+    expect(oystercard.touch_out).to eq (false)
+  end 
 
 end
+
+# it 'is initially not in a journey' do
+#   expect(subject).not_to be_in_journey
+# end 
+
+# it 'can touch in' do 
+#   subject.touch_in
+#   expect(subject).to be_in_journey
+# end 
+
+# it 'can touch out' do
+#   subject.touch_in
+#   subject.touch_out
+#   expect(subject).not_to be_in_journey
+# end
