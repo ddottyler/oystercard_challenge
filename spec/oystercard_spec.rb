@@ -22,4 +22,9 @@ describe Oystercard do
     expect{ subject.top_up 1 }.to raise_error 'Maximum balance of #{maximum_balance} exceeded'
   end 
 
+  it 'should deduct money from balance' do
+    expect{ oystercard.deduct(20)}.to change{ oystercard.balance }.by -20
+  end
+
+
 end
