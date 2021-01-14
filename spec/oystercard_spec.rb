@@ -37,6 +37,7 @@ end
   describe '#touch_out' do
     it { is_expected.to respond_to(:touch_out).with(1).argument}
   end
+  
   it 'should touch out oystercard' do
     subject.top_up(5)
     subject.touch_in(entry_station)
