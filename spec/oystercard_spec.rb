@@ -1,10 +1,11 @@
 require 'oystercard'
-require 'spec_helper'
+require "journey"
 
 describe Oystercard do
 
   let(:entry_station){double :station}
   let(:exit_station){double :station}
+  let(:journey) { double :journey }
 
   it "should check a card has a balance" do
     expect(subject.balance).to eq(0)
@@ -46,6 +47,13 @@ describe Oystercard do
       subject.top_up(5)
       subject.touch_in(entry_station)
       expect(subject.in_journey?).to eq(true)
+    end
+
+    it 'no longer in_journey after touch out' do
+      subject.top_up(5)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.in_journey?).to eq (false)
     end 
     
   end
@@ -57,8 +65,17 @@ describe Oystercard do
       subject.top_up(5)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.in_journey?).to eq (false)
-    end 
+      expect(subject.history.length).to eq 1
+    end
+
+    # it 'create a Journey in history' do
+    #   subject.top_up(5)
+    #   subject.touch_in(entry_station)
+    #   subject.touch_out(exit_station)
+
+    #   expect(subject.history).to include journey
+    # end
+
 
     it 'should take off minimum cost when touching out' do
       subject.top_up(5)
