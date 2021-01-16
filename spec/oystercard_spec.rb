@@ -7,17 +7,15 @@ describe Oystercard do
   let(:exit_station){double :station}
   let(:journey) { double :journey, MINIMUM_FARE: 1, PENALTY_FARE: 6  }
 
-
-
   describe "card without top up" do
 
-    it "should check a card starts with 0 balance" do
-      expect(subject.balance).to eq(0)
-    end
+    # it "should check a card starts with 0 balance" do
+    #   expect(subject.balance).to eq(0)
+    # end
 
-    it 'should raise an error if balance is less than 1' do
-      expect { subject.touch_in(entry_station) }.to raise_error "No money"
-    end
+    # it 'should raise an error if balance is less than 1' do
+    #   expect { subject.touch_in(entry_station) }.to raise_error "No money"
+    # end
 
   end
 
@@ -30,14 +28,14 @@ describe Oystercard do
 
   describe '#top_up' do
  
-    it "should top up balance" do
-      expect{ subject.top_up(20) }.to change{ subject.balance }.by 20
-    end
+    # it "should top up balance" do
+    #   expect{ subject.top_up(20) }.to change{ subject.balance }.by 20
+    # end
 
-    it 'raises an error if the maximum balance is exceeded' do
-      maximum_balance = Oystercard::MAXIMUM_BALANCE 
-      expect{ subject.top_up(maximum_balance) }.to raise_error 'Maximum balance of #{maximum_balance} exceeded'
-    end 
+    # it 'raises an error if the maximum balance is exceeded' do
+    #   maximum_balance = Oystercard::MAXIMUM_BALANCE 
+    #   expect{ subject.top_up(maximum_balance) }.to raise_error 'Maximum balance of #{maximum_balance} exceeded'
+    # end 
 
   end 
 

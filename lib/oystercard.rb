@@ -12,6 +12,8 @@ class Oystercard
   def initialize
     @balance = 0
     @history = []
+    # @journey_log = JourneyLog.new
+    # @history = @journey_log.list_journeys
   end
 
   def top_up(amount)
