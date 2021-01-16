@@ -21,6 +21,10 @@ class Oystercard
 
   def touch_in(entry_station) 
     fail "No money" if balance < MINIMUM_CHARGE
+    if @entry_station != nil
+      @history << Journey.new(@entry_station, nil)
+      deduct(@history[-1].fare)
+    end
     @entry_station = entry_station
     end 
 
