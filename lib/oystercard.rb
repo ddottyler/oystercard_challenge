@@ -26,12 +26,9 @@ class Oystercard
       deduct(@history[-1].fare)
     end
     @entry_station = entry_station
-    end 
+  end 
 
-# touch in -> entry_station !nil    
-# if next touch in, entry_station !nil 
-# end previous journey with entry station and exit station as nil and charge penalty fare
-# start new journey
+
 
   def in_journey?
     @entry_station == nil ? false : true
