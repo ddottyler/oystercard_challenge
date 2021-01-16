@@ -1,19 +1,15 @@
 require 'station'
 
-describe Station do 
+describe Station do
+  
+subject(:station) { Station.new("station1", 2) }
 
  it 'has a name' do
-  name = name 
-  zone = zone
-  station = Station.new(name, zone)
-  expect(station.name).to eq (name)
+  expect(station.name).to eq ("station1")
  end 
 
  it 'has a zone' do
-  name = name
-  zone = zone
-  station = Station.new(name, zone)
-  expect(station.zone).to eq (zone)
+  expect(station.zone).to eq (2)
  end 
 
 end 
