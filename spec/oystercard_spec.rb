@@ -5,7 +5,7 @@ describe Oystercard do
 
   let(:entry_station){double :station}
   let(:exit_station){double :station}
-  let(:journey) { double :journey }
+  let(:journey) { double :journey, MINIMUM_FARE: 1, PENALTY_FARE: 6  }
 
   it "should check a card has a balance" do
     expect(subject.balance).to eq(0)
@@ -80,7 +80,7 @@ describe Oystercard do
     it 'should take off minimum cost when touching out' do
       subject.top_up(5)
       subject.touch_in(entry_station)
-      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
+      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-journey.MINIMUM_FARE)
     end 
 
   end
@@ -92,5 +92,19 @@ describe Oystercard do
   it 'should create one journey' do 
     expect(subject).to respond_to :history
   end
+
+  describe "penalty fares" do 
+    it "should give a penalty fare when you don't touch in" do
+      subject.top_up(10)
+      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-journey.PENALTY_FARE)
+    end 
+
+    it "should give a penalty fare when you don't touch out" do 
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      expect { subject.touch_in(entry_station) }.to change { subject.balance }.by(-journey.PENALTY_FARE)
+    end 
+
+  end 
 
 end

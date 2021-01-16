@@ -3,7 +3,8 @@ require "journey"
 describe Journey do 
 
   subject(:journey) { Journey.new("station1", "station2") }
-  let(:journey1) { Journey.new("station1", nil) }
+  let(:no_exit_journey) { Journey.new("station1", nil) }
+  let(:no_entry_journey) { Journey.new(nil, "station2")}
 
   it 'returns entry_station given' do 
     expect(journey.entry_station).to eq "station1" 
@@ -26,9 +27,13 @@ describe Journey do
       expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
 
-    it "returns penalty fare if no entry/exit" do
-      expect(journey1.fare).to eq Journey::PENALTY_FARE
+    it "returns penalty fare if no exit station" do
+      expect(no_exit_journey.fare).to eq Journey::PENALTY_FARE
     end
+
+    it "returns penalty fare if no entry station" do
+      expect(no_entry_journey.fare).to eq Journey::PENALTY_FARE
+    end 
 
   end
 
